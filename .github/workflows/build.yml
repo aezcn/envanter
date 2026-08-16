@@ -51,7 +51,7 @@ jobs:
           SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
           SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
           VERSION_CODE: ${{ github.run_number }}
-        run: gradle --no-daemon assembleRelease
+        run: gradle --no-daemon testReleaseUnitTest assembleRelease
 
       - name: APK'yı yeniden adlandır
         run: |
