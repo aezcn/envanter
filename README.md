@@ -10,9 +10,9 @@ Google Play'e çıkılmıyor; APK doğrudan telefona kuruluyor.
 
 | Faz | Kapsam | Durum |
 |---|---|---|
-| 0 | Proje iskeleti, CI, imzalama, dağıtım | ✅ kod hazır, doğrulama bekliyor |
-| 1 | Supabase şeması, RLS, giriş, ev oluştur/katıl | ⬜ |
-| 2 | Konumlar + ürünler, Room, temel ekranlar | ⬜ |
+| 0 | Proje iskeleti, CI, imzalama, dağıtım | ✅ |
+| 1 | Supabase şeması, RLS, RPC'ler | ✅ şema hazır; giriş ekranları Faz 3'te |
+| 2 | Konumlar + ürünler, Room, temel ekranlar | ✅ v0.1.0 |
 | 3 | Senkronizasyon (outbox + realtime) | ⬜ |
 | 4 | SKT/azalan kartları, arama, hızlı ± | ⬜ |
 | 5 | SKT bildirimleri | ⬜ |
