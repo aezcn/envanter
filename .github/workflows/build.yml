@@ -16,10 +16,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: JDK 17 kur
-        uses: actions/setup-java@v4
+        uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
@@ -27,7 +27,7 @@ jobs:
       # Repoda gradle-wrapper.jar yok (yerelde JDK olmadığı için üretilemedi),
       # bu yüzden Gradle sürümü burada sabitleniyor.
       - name: Gradle kur
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: "8.10.2"
 
@@ -59,7 +59,7 @@ jobs:
           cp app/build/outputs/apk/release/*.apk "out/ev-envanteri-${{ github.run_number }}.apk"
 
       - name: APK'yı artifact olarak yükle
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: ev-envanteri-apk
           path: out/*.apk
