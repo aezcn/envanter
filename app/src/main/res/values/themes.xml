@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Compose kendi temasını kurar; buradaki tema yalnızca uygulama açılırken
+         gösterilen ilk pencere içindir. -->
+    <style name="Theme.EvEnvanteri" parent="android:Theme.Material.Light.NoActionBar" />
+</resources>

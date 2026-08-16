@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Basit bir dolap/kiler simgesi. 108dp adaptive icon tuvali; güvenli alan
+     merkezdeki 72dp olduğu için çizim 27..81 aralığında tutuldu. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+
+    <!-- Dolap gövdesi -->
+    <path
+        android:pathData="M34,28h40a4,4 0 0 1 4,4v44a4,4 0 0 1 -4,4h-40a4,4 0 0 1 -4,-4v-44a4,4 0 0 1 4,-4z"
+        android:fillColor="#FFFFFF" />
+
+    <!-- Raf çizgileri -->
+    <path
+        android:pathData="M30,46h48v3h-48z"
+        android:fillColor="#3B6939" />
+    <path
+        android:pathData="M30,62h48v3h-48z"
+        android:fillColor="#3B6939" />
+
+    <!-- Üst rafta kavanozlar -->
+    <path
+        android:pathData="M38,34h7v10h-7z"
+        android:fillColor="#3B6939" />
+    <path
+        android:pathData="M49,36h7v8h-7z"
+        android:fillColor="#3B6939" />
+    <path
+        android:pathData="M60,33h8v11h-8z"
+        android:fillColor="#3B6939" />
+
+    <!-- Alt rafta kutular -->
+    <path
+        android:pathData="M38,52h11v8h-11z"
+        android:fillColor="#3B6939" />
+    <path
+        android:pathData="M53,54h15v6h-15z"
+        android:fillColor="#3B6939" />
+    <path
+        android:pathData="M38,68h30v6h-30z"
+        android:fillColor="#3B6939" />
+</vector>

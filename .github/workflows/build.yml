@@ -1,0 +1,75 @@
+name: APK derle
+
+on:
+  push:
+    branches: [main]
+    tags: ["v*"]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: JDK 17 kur
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # Repoda gradle-wrapper.jar yok (yerelde JDK olmadığı için üretilemedi),
+      # bu yüzden Gradle sürümü burada sabitleniyor.
+      - name: Gradle kur
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.10.2"
+
+      - name: İmzalama anahtarını hazırla
+        env:
+          KEYSTORE_BASE64: ${{ secrets.KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_BASE64" ]; then
+            echo "$KEYSTORE_BASE64" | base64 -d > "$RUNNER_TEMP/keystore.jks"
+            echo "KEYSTORE_PATH=$RUNNER_TEMP/keystore.jks" >> "$GITHUB_ENV"
+            echo "Release anahtarı ile imzalanacak."
+          else
+            echo "::warning::KEYSTORE_BASE64 secret'ı yok — APK debug anahtarıyla imzalanacak. Bu APK'nın üzerine sonradan release imzalı sürüm KURULAMAZ."
+          fi
+
+      - name: Derle
+        env:
+          KEYSTORE_PASSWORD: ${{ secrets.KEYSTORE_PASSWORD }}
+          KEY_ALIAS: ${{ secrets.KEY_ALIAS }}
+          KEY_PASSWORD: ${{ secrets.KEY_PASSWORD }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          VERSION_CODE: ${{ github.run_number }}
+        run: gradle --no-daemon assembleRelease
+
+      - name: APK'yı yeniden adlandır
+        run: |
+          mkdir -p out
+          cp app/build/outputs/apk/release/*.apk "out/ev-envanteri-${{ github.run_number }}.apk"
+
+      - name: APK'yı artifact olarak yükle
+        uses: actions/upload-artifact@v4
+        with:
+          name: ev-envanteri-apk
+          path: out/*.apk
+          retention-days: 30
+
+      - name: Etiketliyse Release yayınla
+        if: startsWith(github.ref, 'refs/tags/v')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "${GITHUB_REF_NAME}" out/*.apk \
+            --title "${GITHUB_REF_NAME}" \
+            --notes "Telefondan bu APK'yı indirip kurun."

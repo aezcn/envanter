@@ -1,0 +1,17 @@
+*.iml
+.gradle/
+.idea/
+build/
+local.properties
+.DS_Store
+captures/
+.externalNativeBuild/
+.cxx/
+
+# İmzalama sırları asla repoya girmemeli
+*.jks
+*.keystore
+keystore.properties
+
+# Yerel araç ayarları
+.claude/settings.local.json
